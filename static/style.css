@@ -1,0 +1,13 @@
+ul li {
+    list-style: none;
+}
+
+input[type="checkbox"] {
+    /* --webkit-appearance: none; */
+    background: none;
+    border: red 30px solid;
+}
+input[type="checkbox"]:checked ~ span {
+    text-decoration: line-through
+    
+}

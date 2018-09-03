@@ -3,29 +3,14 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const assert = require('assert');
 const helpers = require('./helpers.js');
+const path = require('path');
 
 const url = 'mongodb://localhost:27017';
 
 const app = express()
-let todos = [
-    {
-        id: 1,
-        task: 'Comprar Leite',
-        done: false
-    }, {
-        id: 2,
-        task: 'Comprar Pao',
-        done: false
-    }, {
-        id: 3,
-        task: 'Comprar Agua',
-        done: false
-    }
-];
 
-let n = 3
 app.use(bodyParser.json());
-
+app.use(express.static('static'))
 
 app.get('/todo/list', (req, res) => {
     MongoClient.connect(url, (err, client) => {
@@ -93,6 +78,10 @@ app.get('/todo/del/:id', (req, res) => {
         })
     })
 });
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'))
+})
 
 app.listen(3000, () => {
     console.log("rodando");
