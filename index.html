@@ -6,21 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TODO List App</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-    <h1>TODO</h1>
-    <ul>
-        <li><input type="checkbox" name="" id=""><span>Levar Cao zinho pra passear</span></li>
-        <li><input type="checkbox" name="" id=""><span>Cortar Frongo</span></li>
-        <li><input type="checkbox" name="" id=""><span>Lavar Louça</span></li>
-        <li><input type="checkbox" name="" id=""><span>Varrer a Casa</span></li>
-        <li><input type="checkbox" name="" id=""><span>Lavar Roupa</span></li>
-        <li><input type="checkbox" name="" id=""><span>assar Roupa</span></li>
-        <li><input type="checkbox" name="" id=""><span>Organizar Armario</span></li>
-        <li><input type="checkbox" name="" id=""><span>Dar banho nos cachorros</span></li>
-        <li><input type="checkbox" name="" id=""><span>Limpar Gaiola</span></li>
-        <li><input type="checkbox" name="" id=""><span>Por comida para os passaros</span></li>
-    </ul>
+    <div id="app">
+        <h1>TODO</h1>
+        <ul>
+            <li v-for="todo in noCheckeds">
+                <input 
+                    type="checkbox" 
+                    :name="'check'+todo._id" 
+                    :id="'check'+todo._id" 
+                    v-model="todo.done"
+                    @click="toggleTodo(todo._id)"
+                    class="checkbox-check">
+                <label :for="'check'+todo._id" class="checkbox-mark"></label>
+                <span class=text>{{ todo.task }}</span>
+                <button @click="delTodo(todo._id)">X</button>
+            </li>
+        </ul>
+        <ul class="checkeds">
+            <li v-for="todo in checkeds">
+                <input 
+                    type="checkbox" 
+                    :name="'check'+todo._id" 
+                    :id="'check'+todo._id" 
+                    v-model="todo.done"
+                    @click="toggleTodo(todo._id)"
+                    class="checkbox-check">
+                <label :for="'check'+todo._id" class="checkbox-mark"></label>
+                <span class='text'>{{ todo.task }}</span>
+                <button @click="delTodo(todo._id)">X</button>
+            </li>
+        </ul>
+        <input type="text" v-model="novo" @keyup.enter="createNew">
+    </div>
 </body>
+    <script src="script.js"></script>
+    <!-- <script>
+    const url = '/todo/list';
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+        })
+    </script> -->
 </html>

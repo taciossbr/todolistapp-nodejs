@@ -5,7 +5,7 @@ const assert = require('assert');
 const helpers = require('./helpers.js');
 const path = require('path');
 
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://localhost:27017/test';
 
 const app = express()
 
@@ -31,7 +31,6 @@ app.post('/todo/new', (req, res) => {
 
         const db = client.db('todos');
         const todo = req.body;
-        console.log(helpers);
         helpers.addTodo(db, todo, (result) => {
             res.json(todo)
         })
